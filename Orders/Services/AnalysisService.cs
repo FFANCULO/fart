@@ -8,11 +8,10 @@ namespace Legislative.Services;
 /// <inheritdoc />
 public class AnalysisService : IAnalysisService
 {
-    private readonly IList<LmonAnalysis> _customers;
+    private readonly IList<LmonAnalysis> _customers = new List<LmonAnalysis>();
 
     public AnalysisService()
     {
-        _customers = new List<LmonAnalysis>();
         _customers.Add(new LmonAnalysis(1, "KinetEco"));
         _customers.Add(new LmonAnalysis(2, "Pixelford Photography"));
         _customers.Add(new LmonAnalysis(3, "Topsy Turvy"));

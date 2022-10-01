@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.DataLoader;
@@ -42,7 +43,7 @@ public class Startup
             .ConfigureExecutionOptions(options =>
             {
                 options.EnableMetrics = Environment.IsDevelopment();
-                var logger = options.RequestServices.GetRequiredService<ILogger<Startup>>();
+                var logger = (options.RequestServices ?? throw new Exception(nameof(options))).GetRequiredService<ILogger<Startup>>();
                 options.UnhandledExceptionDelegate = ctx =>
                 {
                     logger.LogError("{Error} occurred", ctx.OriginalException.Message);
