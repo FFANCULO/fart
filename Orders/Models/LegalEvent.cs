@@ -11,7 +11,7 @@ namespace Orders.Models
             Created = created;
             CustomerId = customerId;
             this.Id = Id;
-            Status = OrderStatuses.CREATED;
+            Status = LegislationStatuses.CREATED;
         }
 
         public string Name { get; set; }
@@ -19,16 +19,16 @@ namespace Orders.Models
         public DateTime Created { get; private set; }
         public int CustomerId { get; set; }
         public string Id { get; private set; }
-        public OrderStatuses Status { get; private set; }
+        public LegislationStatuses Status { get; private set; }
 
         public void Start() 
         {
-            Status = OrderStatuses.PROCESSING;
+            Status = LegislationStatuses.PROCESSING;
         }
     }
 
     [Flags]
-    public enum OrderStatuses
+    public enum LegislationStatuses
     {
         CREATED = 2,
         PROCESSING = 4,

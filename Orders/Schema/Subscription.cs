@@ -34,11 +34,11 @@ public class Subscription : ObjectGraphType<object>
 
     private IObservable<LegislationEvent> Subscribe(IResolveFieldContext context)
     {
-        var statusList = context.GetArgument<IList<OrderStatuses>>("statuses", new List<OrderStatuses>());
+        var statusList = context.GetArgument<IList<LegislationStatuses>>("statuses", new List<LegislationStatuses>());
 
         if (statusList.Count > 0)
         {
-            var statuses = statusList.Aggregate<OrderStatuses, OrderStatuses>(0, (current, status) => current | status);
+            var statuses = statusList.Aggregate<LegislationStatuses, LegislationStatuses>(0, (current, status) => current | status);
 
             return EventService.EventStream().Where(e => (e.Status & statuses) == e.Status);
         }

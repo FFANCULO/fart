@@ -4,7 +4,7 @@ namespace Orders.Models
 {
     public class LegislationEvent
     {
-        public LegislationEvent(string orderId, string name, OrderStatuses status, DateTime timestamp)
+        public LegislationEvent(string orderId, string name, LegislationStatuses status, DateTime timestamp)
         {
             OrderId = orderId;
             Name = name;
@@ -15,7 +15,7 @@ namespace Orders.Models
         public string Id { get; set; }
         public string OrderId { get; set; }
         public string Name { get; set; }
-        public OrderStatuses Status { get; set; }
+        public LegislationStatuses Status { get; set; }
         public DateTime Timestamp { get; private set; }
     }
 }

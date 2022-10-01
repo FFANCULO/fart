@@ -34,12 +34,4 @@ namespace Orders.Services
             return _eventStream.AsObservable();
         }
     }
-
-    public interface ILegislationEventService
-    {
-        ConcurrentStack<LegislationEvent> AllEvents { get; }
-        void AddError(Exception exception);
-        LegislationEvent AddEvent(LegislationEvent legislationEvent);
-        IObservable<LegislationEvent> EventStream();
-    }
 }
