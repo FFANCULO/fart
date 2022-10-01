@@ -3,9 +3,9 @@ using Orders.Models;
 
 namespace Orders.Schema
 {
-    public class OrderEventType : ObjectGraphType<OrderEvent>
+    public class LegislationEventType : ObjectGraphType<LegislationEvent>
     {
-        public OrderEventType()
+        public LegislationEventType()
         {
             Field(e => e.Id);
             Field(e => e.Name);

@@ -2,9 +2,9 @@
 
 namespace Orders.Models
 {
-    public class Order
+    public class LegalEvent
     {
-        public Order(string name, string description, DateTime created, int customerId, string Id)
+        public LegalEvent(string name, string description, DateTime created, int customerId, string Id)
         {
             Name = name;
             Description = description;

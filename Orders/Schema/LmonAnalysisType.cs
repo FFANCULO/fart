@@ -7,9 +7,9 @@ using Orders.Models;
 
 namespace Orders.Schema
 {
-    public class CustomerType : ObjectGraphType<Customer>
+    public class LmonAnalysisType : ObjectGraphType<LmonAnalysis>
     {
-        public CustomerType()
+        public LmonAnalysisType()
         {
             Field(c => c.Id);
             Field(c => c.Name);

@@ -6,40 +6,40 @@ using System.Reactive.Subjects;
 
 namespace Orders.Services
 {
-    public class OrderEventService : IOrderEventService
+    public class LegislationEventService : ILegislationEventService
     {
-        private readonly ISubject<OrderEvent> _eventStream = new ReplaySubject<OrderEvent>(1);
+        private readonly ISubject<LegislationEvent> _eventStream = new ReplaySubject<LegislationEvent>(1);
 
-        public OrderEventService()
+        public LegislationEventService()
         {
-            AllEvents = new ConcurrentStack<OrderEvent>();
+            AllEvents = new ConcurrentStack<LegislationEvent>();
         }
 
-        public ConcurrentStack<OrderEvent> AllEvents { get; }
+        public ConcurrentStack<LegislationEvent> AllEvents { get; }
 
         public void AddError(Exception exception)
         {
             _eventStream.OnError(exception);
         }
 
-        public OrderEvent AddEvent(OrderEvent orderEvent)
+        public LegislationEvent AddEvent(LegislationEvent legislationEvent)
         {
-            AllEvents.Push(orderEvent);
-            _eventStream.OnNext(orderEvent);
-            return orderEvent;
+            AllEvents.Push(legislationEvent);
+            _eventStream.OnNext(legislationEvent);
+            return legislationEvent;
         }
 
-        public IObservable<OrderEvent> EventStream()
+        public IObservable<LegislationEvent> EventStream()
         {
             return _eventStream.AsObservable();
         }
     }
 
-    public interface IOrderEventService
+    public interface ILegislationEventService
     {
-        ConcurrentStack<OrderEvent> AllEvents { get; }
+        ConcurrentStack<LegislationEvent> AllEvents { get; }
         void AddError(Exception exception);
-        OrderEvent AddEvent(OrderEvent orderEvent);
-        IObservable<OrderEvent> EventStream();
+        LegislationEvent AddEvent(LegislationEvent legislationEvent);
+        IObservable<LegislationEvent> EventStream();
     }
 }

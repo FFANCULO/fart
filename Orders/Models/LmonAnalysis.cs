@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Orders.Models
 {
-    public class Customer
+    public class LmonAnalysis
     {
-        public Customer(int id, string name)
+        public LmonAnalysis(int id, string name)
         {
             Id = id;
             Name = name;

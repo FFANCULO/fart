@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace Orders.Services
 {
-    public class OrderService : IOrderService
+    public class LegalEventService : ILegalEventService
     {
-        private IList<Order> _orders;
-        private readonly IOrderEventService _eventService;
-        public OrderService(IOrderEventService orderEventService)
+        private readonly IList<LegalEvent> _legalEvents;
+        private readonly ILegislationEventService _eventService;
+        public LegalEventService(ILegislationEventService legislationEventService)
         {
-            _orders = new List<Order>();
-            _orders.Add(new Order("1000", "250 Conference brochures", DateTime.Now, 1, "FAEBD971-CBA5-4CED-8AD5-CC0B8D4B7827"));
-            _orders.Add(new Order("2000", "250 T-shirts", DateTime.Now.AddHours(1), 2, "F43A4F9D-7AE9-4A19-93D9-2018387D5378"));
-            _orders.Add(new Order("3000", "500 Stickers", DateTime.Now.AddHours(2), 3, "2D542571-EF99-4786-AEB5-C997D82E57C7"));
-            _orders.Add(new Order("4000", "10 Posters", DateTime.Now.AddHours(2), 4, "2D542572-EF99-4786-AEB5-C997D82E57C7"));
+            _legalEvents = new List<LegalEvent>();
+            _legalEvents.Add(new LegalEvent("1000", "250 Conference brochures", DateTime.Now, 1, "FAEBD971-CBA5-4CED-8AD5-CC0B8D4B7827"));
+            _legalEvents.Add(new LegalEvent("2000", "250 T-shirts", DateTime.Now.AddHours(1), 2, "F43A4F9D-7AE9-4A19-93D9-2018387D5378"));
+            _legalEvents.Add(new LegalEvent("3000", "500 Stickers", DateTime.Now.AddHours(2), 3, "2D542571-EF99-4786-AEB5-C997D82E57C7"));
+            _legalEvents.Add(new LegalEvent("4000", "10 Posters", DateTime.Now.AddHours(2), 4, "2D542572-EF99-4786-AEB5-C997D82E57C7"));
 
-            _eventService = orderEventService;
+            _eventService = legislationEventService;
         }
 
-        private Order GetById(string id) 
+        private LegalEvent GetById(string id) 
         {
-            var order = _orders.SingleOrDefault(x => x.Id == id);
+            var order = _legalEvents.SingleOrDefault(x => x.Id == id);
             if (order == null)
             {
                 throw new ArgumentException($"Order Id : {id} is invalid");
@@ -31,39 +31,39 @@ namespace Orders.Services
             return order;
         }
 
-        public Task<Order> GetOrderByIdAsync(string id)
+        public Task<LegalEvent> GetOrderByIdAsync(string id)
         {
-            return Task.FromResult(_orders.Single(o => Equals(o.Id, id)));
+            return Task.FromResult(_legalEvents.Single(o => Equals(o.Id, id)));
         }
 
-        public Task<IEnumerable<Order>> GetOrdersAsync()
+        public Task<IEnumerable<LegalEvent>> GetOrdersAsync()
         {
-            return Task.FromResult(_orders.AsEnumerable());
+            return Task.FromResult(_legalEvents.AsEnumerable());
         }
 
-        public Task<Order> CreateAsync(Order order)
+        public Task<LegalEvent> CreateAsync(LegalEvent legalEvent)
         {
-            _orders.Add(order);
-            var orderEvent = new OrderEvent(order.Id, order.Name, OrderStatuses.CREATED, DateTime.Now);
+            _legalEvents.Add(legalEvent);
+            var orderEvent = new LegislationEvent(legalEvent.Id, legalEvent.Name, OrderStatuses.CREATED, DateTime.Now);
             _eventService.AddEvent(orderEvent);
-            return Task.FromResult(order);
+            return Task.FromResult(legalEvent);
         }
 
-        public Task<Order> StartAsync(string orderId)
+        public Task<LegalEvent> StartAsync(string orderId)
         {
             var order = GetById(orderId);
             order.Start();
-            var orderEvent = new OrderEvent(order.Id, order.Name, OrderStatuses.PROCESSING, DateTime.Now);
+            var orderEvent = new LegislationEvent(order.Id, order.Name, OrderStatuses.PROCESSING, DateTime.Now);
             _eventService.AddEvent(orderEvent);
             return Task.FromResult(order);
         }
     }
 
-    public interface IOrderService
+    public interface ILegalEventService
     {
-        Task<Order> GetOrderByIdAsync(string id);
-        Task<IEnumerable<Order>> GetOrdersAsync();
-        Task<Order> CreateAsync(Order order);
-        Task<Order> StartAsync(string orderId);
+        Task<LegalEvent> GetOrderByIdAsync(string id);
+        Task<IEnumerable<LegalEvent>> GetOrdersAsync();
+        Task<LegalEvent> CreateAsync(LegalEvent legalEvent);
+        Task<LegalEvent> StartAsync(string orderId);
     }
 }

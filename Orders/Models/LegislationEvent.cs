@@ -2,9 +2,9 @@
 
 namespace Orders.Models
 {
-    public class OrderEvent
+    public class LegislationEvent
     {
-        public OrderEvent(string orderId, string name, OrderStatuses status, DateTime timestamp)
+        public LegislationEvent(string orderId, string name, OrderStatuses status, DateTime timestamp)
         {
             OrderId = orderId;
             Name = name;

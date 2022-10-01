@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace DotnetGraphQL
+namespace DotnetGraphQL;
+
+public class GraphQLUserContext : Dictionary<string, object>
 {
-    public class GraphQLUserContext : Dictionary<string, object>
-    {
-        public ClaimsPrincipal User { get; set; }
-    }
+    public ClaimsPrincipal User { get; set; }
 }

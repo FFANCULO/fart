@@ -2,7 +2,7 @@
 
 namespace Orders.Models
 {
-    public class OrderCreateInput
+    public class LegislationCreateInput
     {
         public string Name { get; set; }
         public string Description { get; set; }

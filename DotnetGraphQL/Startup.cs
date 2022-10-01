@@ -1,49 +1,44 @@
 using System.Threading.Tasks;
-
+using GraphQL;
+using GraphQL.DataLoader;
+using GraphQL.MicrosoftDI;
+using GraphQL.Server;
+using GraphQL.SystemTextJson;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-
 using Orders.Schema;
 using Orders.Services;
 
-using GraphQL;
-using GraphQL.MicrosoftDI;
-using GraphQL.SystemTextJson;
-using GraphQL.Server;
-using GraphQL.Types;
-using GraphQL.DataLoader;
+namespace DotnetGraphQL;
 
-
-namespace DotnetGraphQL
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
-        public IConfiguration Configuration { get; }
+        Configuration = configuration;
+        Environment = environment;
+    }
 
-        public IWebHostEnvironment Environment { get; }
+    public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
-        {
-            Configuration = configuration;
-            Environment = environment;
-        }
+    public IWebHostEnvironment Environment { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<IOrderService, OrderService>();
-            services.AddSingleton<ICustomerService, CustomerService>();
-            services.AddSingleton<IOrderEventService, OrderEventService>();
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSingleton<ILegalEventService, LegalEventService>();
+        services.AddSingleton<IAnalysisService, AnalysisService>();
+        services.AddSingleton<ILegislationEventService, LegislationEventService>();
 
-            services.AddGraphQL(builder => builder
+        services.AddGraphQL(builder => builder
             .AddApolloTracing()
             .AddHttpMiddleware<ISchema>()
-            .AddWebSocketsHttpMiddleware<OrdersSchema>()
-            .AddSchema<OrdersSchema>()
+            .AddWebSocketsHttpMiddleware<LegislationSchema>()
+            .AddSchema<LegislationSchema>()
             .ConfigureExecutionOptions(options =>
             {
                 options.EnableMetrics = Environment.IsDevelopment();
@@ -58,19 +53,18 @@ namespace DotnetGraphQL
             .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
             .AddWebSockets()
             .AddDataLoader()
-            .AddGraphTypes(typeof(OrdersSchema).Assembly));
-        }
+            .AddGraphTypes(typeof(LegislationSchema).Assembly));
+    }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if(env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+            app.UseDeveloperExceptionPage();
 
-            app.UseWebSockets();
-            app.UseGraphQLWebSockets<OrdersSchema>();
+        app.UseWebSockets();
+        app.UseGraphQLWebSockets<LegislationSchema>();
 
-            app.UseGraphQL<ISchema>();
-            app.UseGraphQLPlayground();
-        }
+        app.UseGraphQL<ISchema>();
+        app.UseGraphQLPlayground();
     }
 }

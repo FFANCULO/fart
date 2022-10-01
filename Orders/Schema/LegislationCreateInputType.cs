@@ -2,9 +2,9 @@
 
 namespace Orders.Schema
 {
-    public  class OrderCreateInputType : InputObjectGraphType
+    public  class LegislationCreateInputType : InputObjectGraphType
     {
-        public OrderCreateInputType()
+        public LegislationCreateInputType()
         {
             Name = "OrderInput";
             Field<NonNullGraphType<StringGraphType>>("name");

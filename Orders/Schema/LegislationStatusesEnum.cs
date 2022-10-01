@@ -2,9 +2,9 @@
 
 namespace Orders.Schema
 {
-    public class OrderStatusesEnum : EnumerationGraphType
+    public class LegislationStatusesEnum : EnumerationGraphType
     {
-        public OrderStatusesEnum()
+        public LegislationStatusesEnum()
         {
             Name = "OrderStatus";
             Add("CREATED", 2, "Order was created");
