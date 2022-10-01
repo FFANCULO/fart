@@ -1,6 +1,6 @@
 ﻿using GraphQL.Types;
 
-namespace Orders.Schema
+namespace Legislative.Schema
 {
     public  class LegislationCreateInputType : InputObjectGraphType
     {

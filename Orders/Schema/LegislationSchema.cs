@@ -1,7 +1,7 @@
-﻿using GraphQL.Instrumentation;
-using System;
+﻿using System;
+using GraphQL.Instrumentation;
 
-namespace Orders.Schema
+namespace Legislative.Schema
 {
     public class LegislationSchema : GraphQL.Types.Schema
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Orders.Models
+namespace Legislative.Models
 {
     public class LegalEvent
     {

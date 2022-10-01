@@ -5,14 +5,14 @@ using GraphQL.MicrosoftDI;
 using GraphQL.Server;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
+using Legislative.Schema;
+using Legislative.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Orders.Schema;
-using Orders.Services;
 
 namespace DotnetGraphQL;
 

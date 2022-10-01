@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
-using Orders.Models;
-using Orders.Services;
+using Legislative.Schema;
+using Legislative.Services;
 
-namespace Orders.Schema
+namespace Legislative.Models
 {
     public class LegalEventType : ObjectGraphType<LegalEvent>
     {
@@ -17,8 +17,8 @@ namespace Orders.Schema
             Field(o => o.Name);
             Field(o => o.Description);
 
- 
-            FieldAsync<LmonAnalysisType>("customer",resolve: Resolve);
+
+            FieldAsync<LmonAnalysisType>("customer", resolve: Resolve);
             Field(o => o.Created);
             Field(o => o.Status);
         }

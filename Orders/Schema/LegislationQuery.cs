@@ -1,7 +1,8 @@
 ﻿using GraphQL.Types;
-using Orders.Services;
+using Legislative.Models;
+using Legislative.Services;
 
-namespace Orders.Schema
+namespace Legislative.Schema
 {
     public class LegislationQuery : ObjectGraphType<object>
     {

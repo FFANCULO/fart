@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Orders.Models;
+using Legislative.Models;
 
-namespace Orders.Services
+namespace Legislative.Services
 {
     public interface IAnalysisService
     {

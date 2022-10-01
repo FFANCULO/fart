@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Orders.Models
+﻿namespace Legislative.Models
 {
     public class LmonAnalysis
     {

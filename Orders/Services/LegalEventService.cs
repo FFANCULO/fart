@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Orders.Models;
+using Legislative.Models;
 
-namespace Orders.Services;
+namespace Legislative.Services;
 
 public class LegalEventService : ILegalEventService
 {

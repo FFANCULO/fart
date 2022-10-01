@@ -1,10 +1,10 @@
-﻿using Orders.Models;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Legislative.Models;
 
-namespace Orders.Services
+namespace Legislative.Services
 {
     public class LegislationEventService : ILegislationEventService
     {

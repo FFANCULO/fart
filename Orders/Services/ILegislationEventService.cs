@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Orders.Models;
+using Legislative.Models;
 
-namespace Orders.Services;
+namespace Legislative.Services;
 
 public interface ILegislationEventService
 {

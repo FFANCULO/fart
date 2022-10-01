@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GraphQL.Types;
+using Legislative.Models;
 
-using GraphQL.Types;
-using Orders.Models;
-
-namespace Orders.Schema
+namespace Legislative.Schema
 {
     public class LmonAnalysisType : ObjectGraphType<LmonAnalysis>
     {

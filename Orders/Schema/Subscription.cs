@@ -5,10 +5,10 @@ using System.Reactive.Linq;
 using GraphQL;
 using GraphQL.Resolvers;
 using GraphQL.Types;
-using Orders.Models;
-using Orders.Services;
+using Legislative.Models;
+using Legislative.Services;
 
-namespace Orders.Schema;
+namespace Legislative.Schema;
 
 public class Subscription : ObjectGraphType<object>
 {

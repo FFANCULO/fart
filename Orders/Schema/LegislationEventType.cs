@@ -1,7 +1,7 @@
 ﻿using GraphQL.Types;
-using Orders.Models;
+using Legislative.Models;
 
-namespace Orders.Schema
+namespace Legislative.Schema
 {
     public class LegislationEventType : ObjectGraphType<LegislationEvent>
     {

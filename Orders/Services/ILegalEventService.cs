@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Orders.Models;
 using System.Threading.Tasks;
+using Legislative.Models;
 
-namespace Orders.Services
+namespace Legislative.Services
 {
     public interface ILegalEventService
     {

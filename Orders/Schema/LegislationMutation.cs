@@ -1,10 +1,10 @@
-﻿using GraphQL;
+﻿using System;
+using GraphQL;
 using GraphQL.Types;
-using Orders.Models;
-using Orders.Services;
-using System;
+using Legislative.Models;
+using Legislative.Services;
 
-namespace Orders.Schema
+namespace Legislative.Schema
 {
     public class LegislationMutation : ObjectGraphType<object>
     {
