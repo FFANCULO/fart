@@ -8,20 +8,18 @@ namespace Legislative.Schema
 {
     public class LegislationQuery : ObjectGraphType<object>
     {
-        public ILegalEventService LegalEvents { get; }
+        public ILegalEventService LegalEventService { get; }
 
-        public LegislationQuery(ILegalEventService legalEvents)
+        public LegislationQuery(ILegalEventService legalEventService)
         {
-            LegalEvents = legalEvents;
+            LegalEventService = legalEventService;
             Name = "Query";
-
-  
             FieldAsync<ListGraphType<LegalEventType>>("orders", resolve: Resolve);
         }
 
         async Task<object> Resolve(IResolveFieldContext<object> context)
         {
-            return await LegalEvents.GetOrdersAsync();
+            return await LegalEventService.GetLegalEventsAsync();
         }
 
     }

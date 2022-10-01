@@ -7,7 +7,7 @@ namespace Legislative.Services
     public interface ILegalEventService
     {
         Task<LegalEvent> GetOrderByIdAsync(string id);
-        Task<IEnumerable<LegalEvent>> GetOrdersAsync();
+        Task<IEnumerable<LegalEvent>> GetLegalEventsAsync();
         Task<LegalEvent> CreateAsync(LegalEvent legalEvent);
         Task<LegalEvent> StartAsync(string orderId);
     }

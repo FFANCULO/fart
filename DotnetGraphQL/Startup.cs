@@ -6,6 +6,7 @@ using GraphQL.MicrosoftDI;
 using GraphQL.Server;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
+using Legislative.Repository;
 using Legislative.Schema;
 using Legislative.Services;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,10 @@ public class Startup
         services.AddSingleton<ILegalEventService, LegalEventService>();
         services.AddSingleton<IAnalysisService, AnalysisService>();
         services.AddSingleton<ILegislationEventService, LegislationEventService>();
+        // 
+        services.AddSingleton<ILegalEventRepository, LegalEventRepository>();
+        services.AddSingleton<ILmonAnalysisRepository, LmonAnalysisRepository>();
+
 
         services.AddGraphQL(builder => builder
             .AddApolloTracing()

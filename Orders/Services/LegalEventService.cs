@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Legislative.Models;
+using Legislative.Repository;
 
 namespace Legislative.Services;
 
@@ -11,8 +12,9 @@ public class LegalEventService : ILegalEventService
     private readonly ILegislationEventService _eventService;
     private readonly IList<LegalEvent> _legalEvents = new List<LegalEvent>();
 
-    public LegalEventService(ILegislationEventService legislationEventService)
+    public LegalEventService(ILegislationEventService legislationEventService, ILegalEventRepository repository)
     {
+        Repository = repository;
         _legalEvents.Add(new LegalEvent("1000", "250 Conference brochures", DateTime.Now, 1,
             "FAEBD971-CBA5-4CED-8AD5-CC0B8D4B7827"));
         _legalEvents.Add(new LegalEvent("2000", "250 T-shirts", DateTime.Now.AddHours(1), 2,
@@ -25,14 +27,20 @@ public class LegalEventService : ILegalEventService
         _eventService = legislationEventService;
     }
 
+    public ILegalEventRepository Repository { get; }
+
     public Task<LegalEvent> GetOrderByIdAsync(string id)
     {
         return Task.FromResult(_legalEvents.Single(o => Equals(o.Id, id)));
     }
 
-    public Task<IEnumerable<LegalEvent>> GetOrdersAsync()
+    public async Task<IEnumerable<LegalEvent>> GetLegalEventsAsync()
     {
-        return Task.FromResult(_legalEvents.AsEnumerable());
+        var events = new List<LegalEvent>();
+
+        await foreach (var le in Repository.GetLegalEventsAsync()) events.Add(le);
+
+        return events;
     }
 
     public Task<LegalEvent> CreateAsync(LegalEvent legalEvent)

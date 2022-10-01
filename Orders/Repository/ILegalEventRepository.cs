@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Legislative.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Legislative.Repository
 {
     public interface ILegalEventRepository
     {
-        Task<object> GetLegalEventsAsync();
+        IAsyncEnumerable<LegalEvent> GetLegalEventsAsync();
     }
 }
