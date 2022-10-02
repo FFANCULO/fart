@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetGraphQL", "DotnetGraphQL\DotnetGraphQL.csproj", "{B0BA236D-414C-4F67-976E-3FA7D2967A14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Legislative", "Orders\Legislative.csproj", "{7B465EB3-523B-42F8-8314-4EFFF624DFF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Legislative", "Legislative\Legislative.csproj", "{5AD322FB-03BB-47B9-9E5D-B7C19ECB1DA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{B0BA236D-414C-4F67-976E-3FA7D2967A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0BA236D-414C-4F67-976E-3FA7D2967A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0BA236D-414C-4F67-976E-3FA7D2967A14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B465EB3-523B-42F8-8314-4EFFF624DFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B465EB3-523B-42F8-8314-4EFFF624DFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B465EB3-523B-42F8-8314-4EFFF624DFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B465EB3-523B-42F8-8314-4EFFF624DFF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD322FB-03BB-47B9-9E5D-B7C19ECB1DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD322FB-03BB-47B9-9E5D-B7C19ECB1DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD322FB-03BB-47B9-9E5D-B7C19ECB1DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD322FB-03BB-47B9-9E5D-B7C19ECB1DA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

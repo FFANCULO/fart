@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Legislative\Legislative.csproj" />
     <ProjectReference Include="..\Orders\Legislative.csproj" />
   </ItemGroup>
 

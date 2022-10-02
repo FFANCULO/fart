@@ -361,3 +361,20 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+fart.git/config
+fart.git/description
+fart.git/HEAD
+fart.git/hooks/applypatch-msg.sample
+fart.git/hooks/commit-msg.sample
+fart.git/hooks/fsmonitor-watchman.sample
+fart.git/hooks/post-update.sample
+fart.git/hooks/pre-applypatch.sample
+fart.git/hooks/pre-commit.sample
+fart.git/hooks/pre-merge-commit.sample
+fart.git/hooks/prepare-commit-msg.sample
+fart.git/hooks/pre-push.sample
+fart.git/hooks/pre-rebase.sample
+fart.git/hooks/pre-receive.sample
+fart.git/hooks/push-to-checkout.sample
+fart.git/hooks/update.sample
+fart.git/info/exclude
