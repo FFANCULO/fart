@@ -14,7 +14,7 @@ namespace Legislative.Schema
         {
             LegalEventService = legalEventService;
             Name = "Query";
-            FieldAsync<ListGraphType<LegalEventType>>("orders", resolve: Resolve);
+            FieldAsync<ListGraphType<LegalEventType>>("events", resolve: Resolve);
         }
 
         async Task<object> Resolve(IResolveFieldContext<object> context)

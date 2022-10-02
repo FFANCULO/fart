@@ -1,40 +1,37 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
 using Legislative.Schema;
 using Legislative.Services;
 
-namespace Legislative.Models
+namespace Legislative.Models;
+
+public class LegalEventType : ObjectGraphType<LegalEvent>
 {
-    public class LegalEventType : ObjectGraphType<LegalEvent>
+    public LegalEventType(IAnalysisService analysisService)
     {
-        public IAnalysisService AnalysisService { get; }
+        AnalysisService = analysisService;
+        Field(o => o.Id);
+        Field(o => o.Name);
+        Field(o => o.Created);
+        Field(o => o.Status);
 
-        public LegalEventType(IAnalysisService analysisService)
-        {
-            AnalysisService = analysisService;
-            Field(o => o.Id);
-            Field(o => o.Name);
-            Field(o => o.Created);
-            Field(o => o.Status);
+        FieldAsync<ListGraphType<LmonAnalysisType>>("analysis", resolve: Resolve);
+        Field(o => o.Description);
 
-            FieldAsync<LmonAnalysisType>("analysis", resolve: Resolve);
-            Field(o => o.Description);
+        Field<ListGraphType<MasterReferenceType>>("jurisdictions",
+            resolve: x => x.Source?.jurisdiction.ToList().AsReadOnly());
+    }
 
-            // tbd            Field<ListGraphType<NonNullGraphType<StringGraphType>>>("imagesList", resolve: x => x.Source?.ImagesList)
-            Field<ListGraphType<MasterReferenceType>>("jurisdictions", resolve: x => x.Source?.jurisdiction.ToList().AsReadOnly());
+    public IAnalysisService AnalysisService { get; }
 
-
-        }
-
-        
-
-        async Task<object> Resolve(IResolveFieldContext<LegalEvent> context)
-        {
-            var sourceCustomerId = context.Source.CustomerId;
-            return await AnalysisService.GetAnalysisByForeignKey(sourceCustomerId);
-        }
-
+    private async Task<object> Resolve(IResolveFieldContext<LegalEvent> context)
+    {
+        var sourceCustomerId = context.Source.CustomerId;
+        var list = new List<LmonAnalysis>();
+        await foreach (var analysis in AnalysisService.GetAnalysisByForeignKey(sourceCustomerId)) list.Add(analysis);
+        return list;
     }
 }

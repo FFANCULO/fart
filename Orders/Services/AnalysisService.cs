@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Legislative.Models;
@@ -23,18 +24,15 @@ public class AnalysisService : IAnalysisService
 
     public LmonAnalysis GetCustomerById(int id)
     {
-        return GetAnalysisByForeignKey(id).Result;
+        throw new NotSupportedException(nameof(GetCustomerById));
     }
 
-    public Task<LmonAnalysis> GetAnalysisByForeignKey(int id)
+    public async IAsyncEnumerable<LmonAnalysis> GetAnalysisByForeignKey(int id)
     {
-      // TBD  Repository.GetAnalysisByIdAsync()
-        bool Predicate(LmonAnalysis o)
+        await foreach (var lmonAnalysis in Repository.GetAnalysisByIdAsync(Guid.Empty))
         {
-            return Equals(o.Id, id);
+            yield return lmonAnalysis;
         }
-
-        return Task.FromResult(_customers.Single(Predicate));
     }
 
     public Task<IEnumerable<LmonAnalysis>> GetCustomersAsync()

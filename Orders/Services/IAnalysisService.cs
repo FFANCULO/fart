@@ -7,7 +7,7 @@ namespace Legislative.Services
     public interface IAnalysisService
     {
         LmonAnalysis GetCustomerById(int id);
-        Task<LmonAnalysis> GetAnalysisByForeignKey(int id);
+        IAsyncEnumerable<LmonAnalysis> GetAnalysisByForeignKey(int id);
         Task<IEnumerable<LmonAnalysis>> GetCustomersAsync();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using GraphQL.Types;
 using Legislative.Models;
 
@@ -22,6 +23,14 @@ namespace Legislative.Schema
             Field(c => c.CircularLink);
             Field(c => c.Comment);
             Field(c => c.PersonId);
+
+            // tbd  -- product_type
+            Field<ListGraphType<MasterReferenceType>>("products",
+                resolve: x => x.Source?.product_type.ToList().AsReadOnly());
+            Field<ListGraphType<MasterReferenceType>>("lobs",
+                resolve: x => x.Source?.line_of_business.ToList().AsReadOnly());
+            Field<ListGraphType<MasterReferenceType>>("requirements",
+                resolve: x => x.Source?.proc_requirement.ToList().AsReadOnly());
         }
     }
 }
