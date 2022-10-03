@@ -13,24 +13,24 @@ namespace Legislative.Schema
             Name = "Mutation";
 
             FieldAsync<LegalEventType>(
-                "createOrder",
+                "createLegislation",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LegislationCreateInputType>> { Name = "order" }),
                 resolve: async context =>
                 {
-                    var orderInput = context.GetArgument<LegislationCreateInput>("order");
+                    var legislationCreateInput = context.GetArgument<LegislationCreateInput>("order");
                     var id = Guid.NewGuid().ToString();
-                    var order = new LegalEvent(orderInput.Name, orderInput.Description, orderInput.Created, orderInput.CustomerId, id);
+                    var order = new LegalEvent(legislationCreateInput.Name, legislationCreateInput.Description, legislationCreateInput.Created, legislationCreateInput.LegislationId, id);
                     return await legalEvents.CreateAsync(order);
                 }
             );
 
             FieldAsync<LegalEventType>(
-                "startOrder",
+                "startLegislation",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "orderId" }),
                 resolve: async context =>
                 {
-                    var orderId = context.GetArgument<string>("orderId");
-                    return await legalEvents.StartAsync(orderId);
+                    var Id = context.GetArgument<string>("legislationId");
+                    return await legalEvents.StartAsync(Id);
                 }
             );
         }

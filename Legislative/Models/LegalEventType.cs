@@ -28,9 +28,9 @@ public class LegalEventType : ObjectGraphType<LegalEvent>
 
     private async Task<object> Resolve(IResolveFieldContext<LegalEvent> context)
     {
-        var sourceCustomerId = context.Source.CustomerId;
+        var legislationId = context.Source.LegislationId;
         var list = new List<LmonAnalysis>();
-        await foreach (var analysis in AnalysisService.GetAnalysisByForeignKey(sourceCustomerId)) list.Add(analysis);
+        await foreach (var analysis in AnalysisService.GetAnalysisByForeignKey(legislationId)) list.Add(analysis);
         return list;
     }
 }

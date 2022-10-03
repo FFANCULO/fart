@@ -6,7 +6,7 @@ namespace Legislative.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int CustomerId { get; set; }
+        public int LegislationId { get; set; }
         public DateTime Created { get; set; }
     }
 }
