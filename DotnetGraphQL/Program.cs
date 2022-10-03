@@ -7,6 +7,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        var assembly = typeof(Legislative.Schema.LegislationSchema).Assembly;
         CreateHostBuilder(args).Build().Run();
     }
 
