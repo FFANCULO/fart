@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.DataLoader;
@@ -9,10 +10,12 @@ using GraphQL.Types;
 using Legislative.Repository;
 using Legislative.Schema;
 using Legislative.Services;
+using Legislative.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -39,6 +42,8 @@ public class Startup
         services.AddSingleton<ILegalEventRepository, LegalEventRepository>();
         services.AddSingleton<ILmonAnalysisRepository, LmonAnalysisRepository>();
 
+        var settings = TryRetrieveSettings<PostgresSettings>("appsettings.json");
+        services.AddSingleton(settings ??= new PostgresSettings());
 
         services.AddGraphQL(builder => builder
             .AddApolloTracing()
@@ -67,10 +72,30 @@ public class Startup
         if (env.IsDevelopment())
             app.UseDeveloperExceptionPage();
 
+        var configuration = app.ApplicationServices.GetService<IConfiguration>();
+
         app.UseWebSockets();
         app.UseGraphQLWebSockets<LegislationSchema>();
 
         app.UseGraphQL<ISchema>();
         app.UseGraphQLPlayground();
+
+    }
+
+    public static T TryRetrieveSettings<T>(string filename) where T : class
+    {
+        var physicalFileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile(physicalFileProvider, filename, true, true)
+            .Build();
+
+        var name = typeof(T).Name;
+        var appSettingsSection = configuration.GetSection(name);
+        if (appSettingsSection == null)
+            throw new Exception("No appsettings section has been found");
+
+        var settings = appSettingsSection.Get<T>();
+
+        return settings;
     }
 }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Legislative.Models;
 using Legislative.Repository.Translator;
+using Legislative.Utility;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
@@ -11,18 +12,17 @@ namespace Legislative.Repository;
 
 public class LegalEventRepository : ILegalEventRepository
 {
-    public LegalEventRepository(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+    public PostgresSettings Settings { get; }
 
-    public IConfiguration Configuration { get; }
+    public LegalEventRepository(PostgresSettings settings)
+    {
+        Settings = settings;
+    }
 
     public async IAsyncEnumerable<LegalEvent> GetLegalEventsAsync()
     {
         await using var connection =
-            new NpgsqlConnection(
-                "Host=leavemealone-1.cmjnz9otzdc3.us-east-1.rds.amazonaws.com;Database=Graph2;Username=postgres;Password=L0c0m0tiv?");
+            new NpgsqlConnection(Settings.ConnectionString);
 
         await connection.OpenAsync();
 
@@ -39,25 +39,23 @@ public class LegalEventRepository : ILegalEventRepository
         await using var command =
             new NpgsqlCommand(sql, connection);
 
+        var dataReader = await command.ExecuteReaderAsync(CommandBehavior.Default);
 
-        var dataTable = new DataTable();
-        new NpgsqlDataAdapter(command).Fill(dataTable);
-        foreach (DataRow dataTableRow in dataTable.Rows)
+        while (await dataReader.ReadAsync())
         {
             var legalEvent = new LegalEvent("", "", DateTime.Now, 1, Guid.NewGuid().ToString());
-            legalEvent.DxcrUuid = Guid.TryParse(dataTableRow["dxcr_uuid"].ToString(), out var r1) ? r1 : Guid.Empty;
-            legalEvent.Revision = dataTableRow["revision"].ToString() ?? "";
+            legalEvent.DxcrUuid = Guid.TryParse(dataReader["dxcr_uuid"].ToString(), out var r1) ? r1 : Guid.Empty;
+            legalEvent.Revision = dataReader["revision"].ToString() ?? "";
             legalEvent.DxcrInsertTimestamp =
-                DateTime.TryParse(dataTableRow["dxcr_insertTimestamp"].ToString(), out var r2) ? r2 : DateTime.MinValue;
-            legalEvent.LegalType = dataTableRow["legal_type"].ToString();
-            legalEvent.Description = dataTableRow["description"].ToString();
-            legalEvent.EffectiveDate = DateTime.TryParse(dataTableRow["effective_date"].ToString(), out var r3)
+                DateTime.TryParse(dataReader["dxcr_insertTimestamp"].ToString(), out var r2) ? r2 : DateTime.MinValue;
+            legalEvent.LegalType = dataReader["legal_type"].ToString();
+            legalEvent.Description = dataReader["description"].ToString();
+            legalEvent.EffectiveDate = DateTime.TryParse(dataReader["effective_date"].ToString(), out var r3)
                 ? r3
                 : DateTime.MinValue;
-            legalEvent.jurisdiction = (MasterReference[])dataTableRow["jurisdiction"];
+            legalEvent.jurisdiction = (MasterReference[])dataReader["jurisdiction"];
             yield return legalEvent;
-        }
 
-       
+        }
     }
 }
