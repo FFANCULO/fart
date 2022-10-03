@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
-using Legislative.Schema;
 using Legislative.Services;
 
 namespace Legislative.Models;
